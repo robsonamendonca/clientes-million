@@ -5,6 +5,7 @@ const Cliente = mongoose.model("cliente", {
   sobrenome: { type: String },
   cpf: { type: String, required: true, unique: true },
   login: { type: String, required: true, unique: true },
+  senha: { type: String },
   createat: { type: Date, default: new Date().getDate() },
   updatetat: { type: Date, required: true, default: new Date().getDate() },
 });
