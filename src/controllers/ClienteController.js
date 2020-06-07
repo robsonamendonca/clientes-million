@@ -22,6 +22,31 @@ const ClienteController = {
     return res.status(401).json({ error: 'Acesso não autorizado' })
   },
 
+  login: async (req, res, next) => {
+    
+
+    if (req.headers.token === TOKEN) {
+      try {
+        const { login, senha } = req.body
+        const clientes = await Cliente.find({login: login, senha: senha})
+        if(clientes.length > 0){
+          return res.status(200).send({
+            _id: clientes[0]._id,
+            nome: clientes[0].nome,
+            login: clientes[0].login,
+            cpf: clientes[0].cpf
+          })
+        }
+        else{
+          return res.status(404).send({mensagem: "Cliente não encontrado"})
+        }
+      } catch (error) {
+        res.status(401).send(err)
+      }
+    }
+    return res.status(401).json({ error: 'Acesso não autorizado' })
+  },
+
   getById: async (req, res, next) => {
     if (req.headers.token === TOKEN) {
       try {

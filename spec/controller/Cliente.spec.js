@@ -27,4 +27,10 @@ describe('clienteController', () => {
         const response = await request.delete('/cliente/' + cliente._id).set('token',TOKEN)
         expect(response.status).toBe(204)
     })
+
+    it('deveria fazer o login de um cliente', async () => {
+        const cliente = await Cliente.create({nome:"TESTE DE NOME",sobrenome:"TESTE DE SOBRENOME",cpf:"123456789",senha:"123456",login:"TESTE_DE_LOGIN"})
+        const response = await request.post('/cliente/login').set('token', TOKEN).send({senha:"123456",login:"TESTE_DE_LOGIN"})
+        expect(response.status).toBe(200)
+    }) 
 })
